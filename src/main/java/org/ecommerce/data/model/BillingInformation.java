@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BillingInformation {
-    private int receiverPhoneNumber;
+    private String receiverPhoneNumber;
     private String receiverName;
     private  Address deliveryAddress;
     private CreditCardInformation creditCard;
