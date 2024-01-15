@@ -1,6 +1,8 @@
 package org.ecommerce.utils.Mappers;
 
 import org.ecommerce.data.model.Address;
+import org.ecommerce.data.model.Product;
+import org.ecommerce.data.model.ProductCategory;
 import org.ecommerce.data.model.User;
 
 public class Map {
@@ -13,5 +15,16 @@ public class Map {
         user.setEmailAddress(emailAddress);
         user.setHomeAddress(homeAddress);
         return user;
+    }
+
+    public static Product setProduct(String productId, String productName, int price, String productDescription, ProductCategory productCategory){
+        Product product = new Product();
+
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setPrice(price);
+        product.setProductDescription(productDescription);
+        product.setProductCategory(productCategory);
+       return product;
     }
 }
