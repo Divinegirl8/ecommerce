@@ -10,6 +10,8 @@ import org.ecommerce.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static org.ecommerce.utils.Mappers.Map.setProduct;
 
 @Service
@@ -40,30 +42,26 @@ public class VendorServiceImplementation implements VendorService {
 
         if (product == null) throw new ProductDoesNotExist("product not found");
 
-        if (editProductRequest.isReplaceExisting()) {
-            product.setProductName(editProductRequest.getProductName());
-            if (editProductRequest.getPrice() >= 0) {
-                product.setPrice(editProductRequest.getPrice());
-            }else throw new PriceMustBeGreaterThanAndEqualsToZero("price must be greater or equals to zero");
-            product.setProductDescription(editProductRequest.getProductDescription());
-            product.setProductCategory(editProductRequest.getProductCategory());
-        } else {
 
-            if (editProductRequest.getProductName() != null) {
-                product.setProductName(editProductRequest.getProductName());
-            }
-            if (editProductRequest.getPrice() >= 0) {
-                product.setPrice(editProductRequest.getPrice());
-            } else throw new PriceMustBeGreaterThanAndEqualsToZero("price must be greater or equals to zero");
-            if (editProductRequest.getProductDescription() != null) {
-                product.setProductDescription(editProductRequest.getProductDescription());
-            }
-            if (editProductRequest.getProductCategory() != null) {
-                product.setProductCategory(editProductRequest.getProductCategory());
-            }
-        }
+        if (editProductRequest.getPrice() >= 0){
+            product.setPrice(editProductRequest.getPrice());
+        } else throw new PriceMustBeGreaterThanAndEqualsToZero("price must not be less than 0");
+        product.setProductCategory(editProductRequest.getProductCategory());
+        product.setProductName(editProductRequest.getProductName());
+        product.setProductDescription(editProductRequest.getProductDescription());
+
         productRepository.save(product);
         return product;
+    }
+
+    @Override
+    public void removeAllProduct() {
+        productRepository.deleteAll();
+    }
+
+    @Override
+    public List<Product> viewAllProducts() {
+        return productRepository.findAll();
     }
 
 

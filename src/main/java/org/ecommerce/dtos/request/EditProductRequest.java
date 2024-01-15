@@ -10,5 +10,4 @@ public class EditProductRequest {
     int price;
     String productDescription;
     ProductCategory productCategory;
-    boolean replaceExisting;
 }
